@@ -6,7 +6,7 @@ import { HashRouter, Routes, Route, Outlet, useLocation } from "react-router-dom
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Schedule from "./pages/Schedule";
+// import Schedule from "./pages/Schedule";
 import Instructors from "./pages/Instructors";
 import Reviews from "./pages/Reviews";
 import Contacts from "./pages/Contacts";
