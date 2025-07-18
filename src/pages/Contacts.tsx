@@ -87,7 +87,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundImage: "url('/retreat/images/contacts1.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
+    <div className="min-h-screen relative" style={{ backgroundImage: "url('/images/contacts1.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
       <SEO 
         title="Контакты | Ретриты Осознанности в Крыму и Подмосковье"
         description="Запишитесь на ретрит осознанности в Крыму или Подмосковье. Медитация, йога, духовные практики для восстановления энергии и борьбы с эмоциональным выгоранием."
