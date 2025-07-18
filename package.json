@@ -2,7 +2,7 @@
   "name": "retreaty-space",
   "private": true,
   "version": "1.0.0",
-  "homepage": "https://chanramenn.github.io/Retreat",
+  "homepage": "https://sebastianCastro.github.io/retreat",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "build:dev": "vite build --mode development",
     "build:prod": "vite build --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
