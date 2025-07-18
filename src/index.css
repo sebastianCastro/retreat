@@ -8,14 +8,6 @@
 All colors MUST be HSL.
 */
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
 .luxurious-script {
   font-family: 'Luxurious Script', cursive;
@@ -208,12 +200,5 @@ All colors MUST be HSL.
   
   .rotate-y-180 {
     transform: rotateY(180deg);
-  }
-
-  .animate-scroll {
-    animation: scroll 40s linear infinite;
-  }
-  .animate-scroll:hover {
-    animation-play-state: paused;
   }
 }
