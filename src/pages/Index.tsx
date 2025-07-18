@@ -21,7 +21,7 @@ const Index = () => {
     <div
       className="min-h-screen relative"
       style={{
-        backgroundImage: "url('/images/lavender-bg.jpg')",
+        backgroundImage: "url('/retreat/images/lavender-bg.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
