@@ -1,30 +1,6 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
 
 const ReviewsSection = () => {
-  const reviews = [
-    {
-      name: "Анна Смирнова",
-      text: "Добрый день. Хочу поблагодарить вас девочки за этот ретрит и за то состояние, которое внутри, очень хочется прибывать в нем и сохранить его.  Очень благодарна вам ",
-      rating: 5,
-      retreat: "Ретрит в горах Крыма, июнь 2025"
-    },
-    {
-      name: "Михаил Козлов",
-      text: "Отличная организация, профессиональные преподаватели. Информационный детокс был именно тем, что нужно. Рекомендую всем, кто устал от стресса.",
-      rating: 5,
-      retreat: "Ретрит в горах Крыма, июнь 2025"
-    },
-    {
-      name: "Елена Петрова",
-      text: "Прекрасное место, вкусная еда, атмосфера полного спокойствия. Научилась управлять стрессом и тревожностью. Планирую вернуться снова.",
-      rating: 5,
-      retreat: "Ретрит в горах Крыма, июнь 2025"
-    }
-  ];
-
   const images = [
     { src: "/retreat/images/review1.jpg", alt: "Review 1" },
     { src: "/retreat/images/review18.png", alt: "Review 2" },
@@ -36,23 +12,8 @@ const ReviewsSection = () => {
     { src: "/retreat/images/review15.jpg", alt: "Review 8" },
   ];
 
-  const [offset, setOffset] = React.useState(0);
-  const visibleCount = 3;
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setOffset((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  // Get the visible images, looping if needed
-  const getVisibleImages = () => {
-    const result = [];
-    for (let i = 0; i < visibleCount; i++) {
-      result.push(images[(offset + i) % images.length]);
-    }
-    return result;
-  };
+  // Double the images array to create a seamless loop
+  const doubledImages = [...images, ...images];
 
   return (
     <section className="py-16">
@@ -65,14 +26,14 @@ const ReviewsSection = () => {
             Что говорят люди о своем опыте на наших ретритах
           </p>
         </div>
-        <div className="flex justify-center items-center">
-          <div className="flex gap-8 w-[900px] h-[36rem] overflow-hidden">
-            {getVisibleImages().map((img, idx) => (
+        <div className="relative flex justify-center items-center overflow-hidden">
+          <div className="flex gap-8 animate-scroll" style={{ width: 'max-content' }}>
+            {doubledImages.map((img, idx) => (
               <img
-                key={img.src}
+                key={`${img.src}-${idx}`}
                 src={img.src}
                 alt={img.alt}
-                className="object-contain w-[280px] h-[36rem] rounded-2xl shadow-lg transition-all duration-700"
+                className="object-cover w-[280px] h-[36rem] rounded-2xl shadow-lg"
                 style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.18))' }}
               />
             ))}
