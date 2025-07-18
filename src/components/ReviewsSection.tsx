@@ -1,19 +1,28 @@
-import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 const ReviewsSection = () => {
-  const images = [
-    { src: "/retreat/images/review1.jpg", alt: "Review 1" },
-    { src: "/retreat/images/review18.png", alt: "Review 2" },
-    { src: "/retreat/images/review12.jpg", alt: "Review 3" },
-    { src: "/retreat/images/review13.jpg", alt: "Review 4" },
-    { src: "/retreat/images/review17.jpg", alt: "Review 5" },
-    { src: "/retreat/images/review16.jpg", alt: "Review 6" },
-    { src: "/retreat/images/review14.jpg", alt: "Review 7" },
-    { src: "/retreat/images/review15.jpg", alt: "Review 8" },
+  const reviews = [
+    {
+      name: "Анна Смирнова",
+      text: "Добрый день. Хочу поблагодарить вас девочки за этот ретрит и за то состояние, которое внутри, очень хочется прибывать в нем и сохранить его.  Очень благодарна вам ",
+      rating: 5,
+      retreat: "Ретрит в горах Крыма, июнь 2025"
+    },
+    {
+      name: "Михаил Козлов",
+      text: "Отличная организация, профессиональные преподаватели. Информационный детокс был именно тем, что нужно. Рекомендую всем, кто устал от стресса.",
+      rating: 5,
+      retreat: "Ретрит в горах Крыма, июнь 2025"
+    },
+    {
+      name: "Елена Петрова",
+      text: "Прекрасное место, вкусная еда, атмосфера полного спокойствия. Научилась управлять стрессом и тревожностью. Планирую вернуться снова.",
+      rating: 5,
+      retreat: "Ретрит в горах Крыма, июнь 2025"
+    }
   ];
-
-  // Double the images array to create a seamless loop
-  const doubledImages = [...images, ...images];
 
   return (
     <section className="py-16">
@@ -26,16 +35,26 @@ const ReviewsSection = () => {
             Что говорят люди о своем опыте на наших ретритах
           </p>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden">
-          <div className="flex gap-8 animate-scroll" style={{ width: 'max-content' }}>
-            {doubledImages.map((img, idx) => (
-              <img
-                key={`${img.src}-${idx}`}
-                src={img.src}
-                alt={img.alt}
-                className="object-cover w-[280px] h-[36rem] rounded-2xl shadow-lg"
-                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.18))' }}
-              />
+
+        <div className="overflow-x-auto">
+          <div className="flex gap-8 min-w-[1200px] sm:min-w-full" style={{width: '100%', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth'}}>
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                className="w-96 h-[36rem] bg-white rounded-2xl flex flex-col items-center justify-start text-gray-400 text-2xl flex-shrink-0 scroll-snap-align-start overflow-hidden"
+                style={{ minWidth: '24rem', minHeight: '36rem' }}
+              >
+                <img src={`/retreat/images/review${index + 1}.jpg`} alt={`Review ${index + 1}`} className="object-contain w-full h-auto mt-2 mb-2" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.18))' }} />
+                <Card className="mt-4">
+                  <CardHeader>
+                    <h3 className="text-xl font-bold text-foreground">{review.name}</h3>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{review.text}</p>
+                    <p className="text-sm text-muted-foreground mt-2">{review.retreat}</p>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
