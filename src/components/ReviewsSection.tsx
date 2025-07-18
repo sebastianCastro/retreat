@@ -36,13 +36,23 @@ const ReviewsSection = () => {
     { src: "/retreat/images/review15.jpg", alt: "Review 8" },
   ];
 
-  const [current, setCurrent] = React.useState(0);
+  const [offset, setOffset] = React.useState(0);
+  const visibleCount = 3;
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
-    }, 3500);
+      setOffset((prev) => (prev + 1) % images.length);
+    }, 3000);
     return () => clearInterval(interval);
   }, [images.length]);
+
+  // Get the visible images, looping if needed
+  const getVisibleImages = () => {
+    const result = [];
+    for (let i = 0; i < visibleCount; i++) {
+      result.push(images[(offset + i) % images.length]);
+    }
+    return result;
+  };
 
   return (
     <section className="py-16">
@@ -56,14 +66,14 @@ const ReviewsSection = () => {
           </p>
         </div>
         <div className="flex justify-center items-center">
-          <div className="relative w-96 h-[36rem]">
-            {images.map((img, idx) => (
+          <div className="flex gap-8 w-[900px] h-[36rem] overflow-hidden">
+            {getVisibleImages().map((img, idx) => (
               <img
                 key={img.src}
                 src={img.src}
                 alt={img.alt}
-                className={`object-contain w-full h-auto mt-2 mb-2 absolute top-0 left-0 transition-opacity duration-700 ${current === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.18))', minHeight: '36rem', borderRadius: '1rem' }}
+                className="object-contain w-[280px] h-[36rem] rounded-2xl shadow-lg transition-all duration-700"
+                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.18))' }}
               />
             ))}
           </div>
