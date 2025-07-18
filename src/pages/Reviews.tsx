@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useRef, useEffect } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +10,16 @@ import { Star, Quote } from 'lucide-react';
 
 const Reviews = () => {
   const [showForm, setShowForm] = useState(false);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center', skipSnaps: false });
+
+  useEffect(() => {
+    if (emblaApi) {
+      let timer = setInterval(() => {
+        emblaApi.scrollNext();
+      }, 5000); // 5 seconds per slide
+      return () => clearInterval(timer);
+    }
+  }, [emblaApi]);
 
   const reviews = [
     {
@@ -100,62 +112,62 @@ const Reviews = () => {
           </p>
         </div>
 
-        {/* Отзывы */}
-        <div className="space-y-6 mb-12">
-          {reviews.map((review) => (
-            <Card key={review.id} className="overflow-hidden">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-xl mb-1">{review.name}</CardTitle>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-2">
-                      <span>{review.location}</span>
-                      <span>•</span>
-                      <span>{review.retreat}</span>
-                      <span>•</span>
-                      <span>{review.date}</span>
+        {/* Carousel */}
+        <div className="embla mb-12" ref={emblaRef}>
+          <div className="embla__container flex">
+            {reviews.map((review) => (
+              <div className="embla__slide min-w-0 flex-1 px-2" key={review.id}>
+                <Card className="overflow-hidden">
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="text-xl mb-1">{review.name}</CardTitle>
+                        <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-2">
+                          <span>{review.location}</span>
+                          <span>•</span>
+                          <span>{review.retreat}</span>
+                          <span>•</span>
+                          <span>{review.date}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="flex">{renderStars(review.rating)}</div>
+                          <Badge variant="outline" className="border-nature-green text-nature-green">
+                            {review.category}
+                          </Badge>
+                        </div>
+                      </div>
+                      <Quote className="h-8 w-8 text-nature-green/30" />
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="flex">{renderStars(review.rating)}</div>
-                      <Badge variant="outline" className="border-nature-green text-nature-green">
-                        {review.category}
-                      </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4 italic">
+                      "{review.text}"
+                    </p>
+                    <div className="bg-nature-beige/20 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold mb-2 text-nature-green">Результат:</h4>
+                      <div className="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="font-medium text-red-600">До:</span>
+                          <p className="text-muted-foreground">{review.beforeAfter.before}</p>
+                        </div>
+                        <div>
+                          <span className="font-medium text-green-600">После:</span>
+                          <p className="text-muted-foreground">{review.beforeAfter.after}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <Quote className="h-8 w-8 text-nature-green/30" />
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <p className="text-muted-foreground mb-4 italic">
-                  "{review.text}"
-                </p>
-                
-                <div className="bg-nature-beige/20 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold mb-2 text-nature-green">Результат:</h4>
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="font-medium text-red-600">До:</span>
-                      <p className="text-muted-foreground">{review.beforeAfter.before}</p>
+                    <div className="flex justify-between items-center text-sm text-muted-foreground">
+                      <span>{review.helpful} человек считают отзыв полезным</span>
+                      <Button variant="ghost" size="sm">
+                        Полезно 👍
+                      </Button>
                     </div>
-                    <div>
-                      <span className="font-medium text-green-600">После:</span>
-                      <p className="text-muted-foreground">{review.beforeAfter.after}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-center text-sm text-muted-foreground">
-                  <span>{review.helpful} человек считают отзыв полезным</span>
-                  <Button variant="ghost" size="sm">
-                    Полезно 👍
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
-
       </div>
     </div>
   );
